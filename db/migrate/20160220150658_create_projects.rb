@@ -1,7 +1,7 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects, id: false do |t|
-      t.string :id, primary_key: true
+      t.string :id, null: false
       t.string :title
       t.string :genre
       t.string :owner_id
@@ -13,5 +13,6 @@ class CreateProjects < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :projects, :id, unique: true
   end
 end
