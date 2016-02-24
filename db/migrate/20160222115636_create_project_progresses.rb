@@ -4,7 +4,7 @@ class CreateProjectProgresses < ActiveRecord::Migration
       t.string :project_id
       t.integer :money
       t.integer :supporter_num
-      t.date :date
+      t.date :datetime
 
       t.timestamps null: false
     end
