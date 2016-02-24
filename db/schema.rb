@@ -14,28 +14,30 @@
 ActiveRecord::Schema.define(version: 20160222115948) do
 
   create_table "project_progresses", force: :cascade do |t|
-    t.string   "project_id"
-    t.integer  "money"
-    t.integer  "supporter_num"
-    t.date     "date"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "project_id",    limit: 255
+    t.integer  "money",         limit: 4
+    t.integer  "supporter_num", limit: 4
+    t.date     "datetime"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "projects", id: false, force: :cascade do |t|
-    t.string   "id"
-    t.string   "title"
-    t.string   "genre"
-    t.string   "owner_id"
-    t.text     "content"
-    t.integer  "goal_money"
-    t.integer  "money"
+    t.string   "id",            limit: 255,   null: false
+    t.string   "title",         limit: 255
+    t.string   "genre",         limit: 255
+    t.string   "owner_id",      limit: 255
+    t.text     "content",       limit: 65535
+    t.integer  "goal_money",    limit: 4
+    t.integer  "money",         limit: 4
     t.date     "deadline"
-    t.integer  "supporter_num"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "platform"
-    t.integer  "flag"
+    t.integer  "supporter_num", limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "platform",      limit: 255
+    t.integer  "flag",          limit: 4
   end
+
+  add_index "projects", ["id"], name: "index_projects_on_id", unique: true, using: :btree
 
 end

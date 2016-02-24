@@ -50,3 +50,4 @@ group :development do
 end
 
 gem 'mechanize'
+gem 'mysql2', '~> 0.3.20'
