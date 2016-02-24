@@ -1,5 +1,8 @@
 class Project < ActiveRecord::Base
   self.primary_key = :id
+
+  has_many :project_progresses, foreign_key: :project_id
+
   validates :id, presence: true, uniqueness: true
   validates :title, presence: true
   validates :genre, presence: true
