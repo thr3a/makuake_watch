@@ -5,9 +5,7 @@ class Project < ActiveRecord::Base
   validates :genre, presence: true
   validates :owner_id, presence: true
   validates :content, presence: true
-  validates :money, presence: true, numericality: { only_integer: true }
   validates :goal_money, presence: true, numericality: { only_integer: true }
   validates :deadline, presence: true
-  validates :supporter_num, presence: true
   validates :flag, presence: true
 end
