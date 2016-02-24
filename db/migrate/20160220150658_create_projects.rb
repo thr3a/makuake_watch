@@ -7,9 +7,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :owner_id
       t.text :content
       t.integer :goal_money
-      t.integer :money
       t.date :deadline
-      t.integer :supporter_num
 
       t.timestamps null: false
     end

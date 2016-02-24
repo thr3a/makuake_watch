@@ -17,25 +17,23 @@ ActiveRecord::Schema.define(version: 20160222115948) do
     t.string   "project_id",    limit: 255
     t.integer  "money",         limit: 4
     t.integer  "supporter_num", limit: 4
-    t.date     "datetime"
+    t.datetime "date"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
 
   create_table "projects", id: false, force: :cascade do |t|
-    t.string   "id",            limit: 255,   null: false
-    t.string   "title",         limit: 255
-    t.string   "genre",         limit: 255
-    t.string   "owner_id",      limit: 255
-    t.text     "content",       limit: 65535
-    t.integer  "goal_money",    limit: 4
-    t.integer  "money",         limit: 4
+    t.string   "id",         limit: 255,   null: false
+    t.string   "title",      limit: 255
+    t.string   "genre",      limit: 255
+    t.string   "owner_id",   limit: 255
+    t.text     "content",    limit: 65535
+    t.integer  "goal_money", limit: 4
     t.date     "deadline"
-    t.integer  "supporter_num", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "platform",      limit: 255
-    t.integer  "flag",          limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "platform",   limit: 255
+    t.integer  "flag",       limit: 4
   end
 
   add_index "projects", ["id"], name: "index_projects_on_id", unique: true, using: :btree
