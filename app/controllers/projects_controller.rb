@@ -13,9 +13,9 @@ class ProjectsController < ApplicationController
     @supporter_num = hoge.pluck(:supporter_num)
     @date = hoge.pluck(:date).map {|d|
       if d.hour == 0
-        d.strftime('%-m月%d日')
+        d.strftime('%-m月%d日 %H')
       else
-        d.strftime('%R')
+        d.strftime('%H')
       end
     }
 end
