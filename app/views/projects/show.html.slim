@@ -1,0 +1,67 @@
+- content_for(:title) do
+  = @project.title
+=javascript_include_tag '//code.highcharts.com/highcharts.js'
+h1 = @project.title
+#progress_graph
+javascript:
+  $(function () {
+    Highcharts.setOptions({
+    lang: {
+      numericSymbols: null, // Y軸にてk表記無効 ex.3000=>3k
+      thousandsSep: ',' // ３桁ごとにカンマ
+    }
+  });
+    $('#progress_graph').highcharts({
+      title: {
+        text: 'プロジェクト推移',
+        x: -20 // 文字列を中央へ
+      },
+      plotOptions: {
+        series: {
+          connectNulls: true // 欠如部分は自動補完
+        }
+      },
+      xAxis: {
+        title: {text:'日付'},
+        labels: {
+          rotation: 90 // 文字列の角度
+        },
+        categories: #{raw @date}
+      },
+      yAxis: [
+        {
+          title: {
+            text: '金額'
+          },
+          min:0,
+        },
+        {
+          title: {
+            text: 'サポーター数'
+          },
+          min:0,
+          opposite: true
+        }
+      ],
+      tooltip: {
+        crosshairs: true,
+        shared: true
+      },
+      series: [
+        {
+          name: '金額',
+          data: #{@money},
+          tooltip: {
+            valueSuffix: ' 円'
+          }
+        },
+        {
+          name: 'サポーター数',
+          data: #{@supporter_num},
+          tooltip: {
+            valueSuffix: ' 人'
+          }
+        }
+      ]
+    });
+  });

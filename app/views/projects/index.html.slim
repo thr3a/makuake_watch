@@ -1,0 +1,5 @@
+- @projects.each do |project|
+  .panel.panel-default
+    .panel-body
+      =link_to project.title, project_path(project)
+==will_paginate @projects, inner_window: 3, previous_label: "前", next_label: "次", renderer: BootstrapPagination::Rails
