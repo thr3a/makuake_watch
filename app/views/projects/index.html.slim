@@ -1,5 +1,14 @@
 - @projects.each do |project|
+  - latest_progress = project.project_progresses.order(:date)[-1]
+  - per = latest_progress.money*100 / project.goal_money
   .panel.panel-default
+    .panel-heading
+      h4 = link_to project.title, project_path(project)
     .panel-body
-      =link_to project.title, project_path(project)
+      .row
+        .col-md-10
+          .progress
+            .progress-bar.progress-bar-info role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:#{per}%"
+        .col-md-2
+          p #{per}% #{latest_progress.money}円/#{latest_progress.supporter_num}人
 ==will_paginate @projects, inner_window: 3, previous_label: "前", next_label: "次", renderer: BootstrapPagination::Rails
