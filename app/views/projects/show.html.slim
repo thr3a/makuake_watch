@@ -1,8 +1,20 @@
 - content_for(:title) do
   = @project.title
 =javascript_include_tag '//code.highcharts.com/highcharts.js'
-h1 = @project.title
+h1
+  = link_to @project.title, project_path
 #progress_graph
+.row
+  .col-md-6
+    ul.list-group
+      li.list-group-item = "ジャンル："+@project.genre
+      li.list-group-item = "オーナー："+@project.owner_id
+      li.list-group-item = "締切日："+@project.deadline.to_s
+      li.list-group-item = "データ取得日："+@project.created_at.to_s
+      li.list-group-item = "目標金額："+@project.goal_money.to_s
+      = link_to "外部サイトへ", "https://www.makuake.com/project/#{@project.id}/", class: "list-group-item active",target: "_blank"
+  .col-md-6
+    .well.pre-scrollable = simple_format(@project.content)
 javascript:
   $(function () {
     Highcharts.setOptions({
