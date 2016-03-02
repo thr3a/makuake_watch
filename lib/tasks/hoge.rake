@@ -49,7 +49,12 @@ namespace :scrape do
             date: Time.now
           )
         else
-          p.update!(flag: 0)
+          per = p.project_progresses.order(:date)[-1].money*100 / p.goal_money
+          if per >= 100
+            p.update!(flag: 2)
+          else
+            p.update!(flag: 0)
+          end
         end
         Rails.logger.info "check::200 #{p.id}"
       rescue => e
