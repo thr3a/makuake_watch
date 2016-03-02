@@ -54,3 +54,4 @@ gem 'mysql2', '~> 0.3.20'
 gem "twitter-bootstrap-rails"
 gem "slim-rails"
 gem 'will_paginate-bootstrap'
+gem 'bootstrap_form'

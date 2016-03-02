@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
+  before_action :search, only: :index
 
   # GET /
   def index
-    @projects = Project.order(:created_at).reverse_order.paginate(page: params[:page], per_page: 30)
+    @projects = @projects.paginate(page: params[:page], per_page: 30)
   end
 
   # GET /project/:id
@@ -25,4 +26,12 @@ end
     def project_params
       params[:project]
     end
+
+    def search
+      @search = Form.new params[:form]
+      @projects = Project.includes :project_progresses
+      @projects = @projects.s_title @search.title if @search.title.present?
+      @projects = @projects.s_order @search.order if @search.order.present?
+    end
+
 end

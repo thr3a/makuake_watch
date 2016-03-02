@@ -1,3 +1,9 @@
+= bootstrap_form_for @search, url: root_path, html: {method: :get}, class: "form-horizontal" do |f|
+  = f.search_field :title
+  = f.form_group :order, label: { text: "Order" } do
+    = f.radio_button :order, "DESC", label: "新しい順", inline: true, checked: true
+    = f.radio_button :order, "ASC", label: "古い順", inline: true
+  = f.submit "検索"
 - @projects.each do |project|
   - latest_progress = project.project_progresses.order(:date)[-1]
   - per = latest_progress.money*100 / project.goal_money
