@@ -3,15 +3,47 @@
 =javascript_include_tag '//code.highcharts.com/highcharts.js'
 h1
   = link_to @project.title, project_path
+hr
+.row
+  .col-md-6
+    ul.list-group
+      - if @project.flag == 2
+        li.list-group-item.list-group-item-success
+            h2.text-center 成功！
+      - elsif @project.flag == 1
+        li.list-group-item.list-group-item-info
+          - if @per >= 100
+            h2.text-center 成功！(進行中)
+          - else
+            h2.text-center 進行中
+      - elsif @project.flag == 0
+        li.list-group-item.list-group-item-danger
+          h2.text-center 失敗…
+  .col-md-6
+    .progress
+      - if @project.flag == 1
+        .progress-bar.progress-bar-striped.active role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:#{@per}%"
+      - else
+        .progress-bar role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:#{@per}%"
+    table.table
+      thead
+        tr
+          th.text-center 目標金額
+          th.text-center 収集金額
+          th.text-center サポーター数
+      tbody
+        tr
+          td.text-center = number_to_currency(@project.goal_money)
+          td.text-center = number_to_currency(@money.last)
+          td.text-center = "#{@supporter_num.last}人"
 #progress_graph
 .row
   .col-md-6
     ul.list-group
       li.list-group-item = "ジャンル："+@project.genre
       li.list-group-item = "オーナー："+@project.owner_id
-      li.list-group-item = "締切日："+@project.deadline.to_s
-      li.list-group-item = "データ取得日："+@project.created_at.to_s
-      li.list-group-item = "目標金額："+@project.goal_money.to_s
+      li.list-group-item = "初回取得日："+@project.created_at.to_s(:datetime)
+      li.list-group-item = "締切日："+@project.deadline.to_time.to_s(:date)
       = link_to "外部サイトへ", "https://www.makuake.com/project/#{@project.id}/", class: "list-group-item active",target: "_blank"
   .col-md-6
     .well.pre-scrollable = simple_format(@project.content)

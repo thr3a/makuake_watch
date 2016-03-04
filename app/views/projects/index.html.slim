@@ -1,9 +1,8 @@
-= bootstrap_form_for @search, url: root_path, html: {method: :get}, class: "form-horizontal" do |f|
-  = f.search_field :title
-  = f.form_group :order, label: { text: "Order" } do
-    = f.radio_button :order, "DESC", label: "新しい順", inline: true, checked: true
-    = f.radio_button :order, "ASC", label: "古い順", inline: true
-  = f.submit "検索"
+.well
+  = bootstrap_form_for @search, url: root_path, html: {method: :get}, class: "form-horizontal" do |f|
+    = f.search_field :title, label: "タイトル"
+    = f.select :order, [["新しい順","date_desc"], ["古い順","date_asc"],["目標金額の低い順","g_money_asc"],["目標金額の高い順","g_money_desc"]], { label: "表示順" }
+    = f.submit "検索"
 - @projects.each do |project|
   - latest_progress = project.project_progresses.order(:date)[-1]
   - per = latest_progress.money*100 / project.goal_money
@@ -14,7 +13,10 @@
       .row
         .col-md-10
           .progress
-            .progress-bar.progress-bar-info role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:#{per}%"
+            - if project.flag == 1
+              .progress-bar.progress-bar-striped.active role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:#{per}%"
+            - else
+              .progress-bar role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:#{per}%"
         .col-md-2
           p #{per}% #{latest_progress.money}円/#{latest_progress.supporter_num}人
 ==will_paginate @projects, inner_window: 3, previous_label: "前", next_label: "次", renderer: BootstrapPagination::Rails
